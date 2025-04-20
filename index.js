@@ -1,19 +1,12 @@
 "use strict"
-/* -------------------------------------------------------
-    EXPRESS - Personnel API
-------------------------------------------------------- */
-/*
-    $ npm i express dotenv mongoose express-async-errors
-    $ npm i cookie-session
-    $ npm i jsonwebtoken
-*/
+
 const express = require("express");
 const app = express();
 
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 
-/* ------------------------------------------------------- */
+
 // Middlewares:
 app.use(express.json())
 require('express-async-errors')
@@ -34,7 +27,6 @@ app.use(require('./src/middlewares/queryHandler'))
 require('./src/configs/dbConnection')
 
 
-/* ------------------------------------------------------- */
 // Routes:
 app.all('/', (req, res) => {
 
@@ -50,6 +42,5 @@ app.use(require('./src/middlewares/errorHandler'))
 // RUN SERVER:
 app.listen(PORT, () => console.log('Running: http://127.0.0.1:' + PORT))
 
-/* ------------------------------------------------------- */
-//! Syncronization : Run it only once.
+
 // require('./src/helpers/sync')()
