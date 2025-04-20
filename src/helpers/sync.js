@@ -6,7 +6,7 @@
 
 module.exports = async function() {
 
-    return null;
+    // return null;
 
     /* REMOVE DATABASE */
     const mongoose = require('mongoose')
@@ -34,7 +34,7 @@ module.exports = async function() {
                     password: "1234",
                     firstName: "firstName",
                     lastName: "lastName",
-                    phone: "123456789",
+                    phone: "12345678910",
                     email: "test" + (value[0] + i) + "@site.com",
                     title: "title",
                     salary: 2500,
