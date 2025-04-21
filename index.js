@@ -34,21 +34,23 @@ app.all('/', (req, res) => {
     })
 })
 // Departments Route
-app.use('/departments',require('./src/routes/department'))
+app.use("/departments", require("./src/routes/department"))
 
 // Personnnel Route
-app.use("/personnels",require("./src/routes/personnel"))
+app.use("/personnels", require("./src/routes/personnel"))
 
-//Token Route
-app.use("/tokens",require("./src/routes/token"))
+// Token Route
+app.use("/tokens", require('./src/routes/token'))
 
+// Auth Route
+app.use('/auth', require('./src/routes/auth'));
 
-app.use("*", (req,res)=>{
+app.use("*", (req, res) => {
     res.status(404).send({
-        error:true,
-        message:"This route not found"
+        error: true,
+        message: "This route not found"
     })
-    })
+});
 
 // Error Handler:
 app.use(require('./src/middlewares/errorHandler'))
