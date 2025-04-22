@@ -19,25 +19,24 @@ module.exports = {
 
                 if (user.isActive){
 
-                 // /* TOKEN */
+                  // /* TOKEN */
 
-                 const tokenData = await Token.create({
-                    userId:user._id,
-                    token: passwordEncrypt(user._id + Date.now())
-                 })
+                  let tokenData = await Token.findOne({ userId: user._id });
 
+                  if (!tokenData) {
+                      tokenData = await Token.create({
+                          userId: user._id,
+                          token: passwordEncrypt(user._id + Date.now())
+                      });
+                  }
+                  /* TOKEN */
 
+                  res.status(200).send({
+                      error: false,
+                      token: tokenData.token,
+                      user
+                  });
 
-
-                 // /* TOKEN */
-
-
-
-                    res.status(200).send({
-                        error: false,
-                        token: tokenData.token,
-                        message:"OK"
-                    })
 
                 } else {
                     res.errorStatusCode = 401;
