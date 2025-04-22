@@ -15,11 +15,26 @@ module.exports = {
         if ((username || email) && password) {
             const user = await Personnel.findOne({ $or: [{ username }, { email }], password });
 
-            res.status(200).send({
-                error: false,
-                message:"OK"
+            if (user) {
 
-            })
+                if (user.isActive){
+                    res.status(200).send({
+                        error: false,
+                        message:"OK"
+                    })
+
+                } else {
+                    res.errorStatusCode = 401;
+                    throw new Error('User is not active')
+                }
+
+
+            } else {
+                res.errorStatusCode = 401;
+                throw new Error('Wrong email/username or password')
+            }
+
+            
 
         } else {
             res.errorStatusCode = 401;
