@@ -25,6 +25,9 @@ app.use(require('./src/middlewares/queryHandler'))
 // DB connection:
 require('./src/configs/dbConnection')
 
+// Authentication
+app.use(require('./src/middlewares/authentication'))
+
 
 // Routes:
 app.all('/', (req, res) => {
