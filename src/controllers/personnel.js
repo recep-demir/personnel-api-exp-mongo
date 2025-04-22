@@ -1,60 +1,79 @@
 "use strict"
+/* -------------------------------------------------------
+    EXPRESS - Personnel API
+------------------------------------------------------- */
+const Personnel = require("../models/personnel")
 
-const Department=require("../models/department")
+module.exports = {
+    list: async (req, res) => {
 
-module.exports={
-    list:async (req,res)=>{
-
-        const result=await res.getModelList(Department)
+        const result = await res.getModelList(Personnel)
 
         res.status(200).send({
-            error:false,
-            details:await res.getModelListDetails(Department),
+            error: false,
+            details: await res.getModelListDetails(Personnel),
             result
         })
-        
+
     },
 
-    create:async (req,res)=>{
+    create: async (req, res) => {
 
-        const result=await Department.create(req.body)
+        // todo : eger ki yeni bir lead olusturulursa eski lead degerini false yap.
+        const isLead = req.body?.islead || false
+
+        if (isLead) {
+            await Personnel.updateMany({ departmentId: req.body.departmentId, isLead: true }, { isLead: false }).then(() => console.log('personnels updated'))
+        }
+
+        const result = await Personnel.create(req.body)
 
         res.status(201).send({
-            error:false,
+            error: false,
             result
         })
 
     },
-    read:async (req,res)=>{
+    read: async (req, res) => {
 
-        const result=await Department.findOne({ _id:req.params.id})
+        const result = await Personnel.findOne({ _id: req.params.id })
 
         res.status(200).send({
-            error:false,
+            error: false,
             result
         })
 
     },
-    update:async (req,res)=>{
+    update: async (req, res) => {
 
-        const result=await Department.updateOne({ _id:req.params.id},req.body,{
-            runValidators:true,  // runs validation methods
-            new:true}) // return updated data
+        // todo : eger ki bir update olursa ve bu update lead olursa eski lead degerini false yap.
+        const isLead = req.body?.islead || false
+
+        if (isLead) {
+            const { departmentId } = await Personnel.findOne({ _id: req.params.id }, { departmentId: 1 })
+
+            await Personnel.updateMany({ departmentId, isLead: true }, { isLead: false }).then(() => console.log('personnels updated'))
+        }
+
+        const result = await Personnel.updateOne({ _id: req.params.id }, req.body, {
+            runValidators: true,  // runs validation methods
+            new: true
+        }) // return updated data
 
         res.status(202).send({
-            error:false,
+            error: false,
             result
         })
 
     },
-    delete:async (req,res)=>{
+    delete: async (req, res) => {
 
-        const result=await Department.deleteOne({ _id:req.params.id})
+        const result = await Personnel.deleteOne({ _id: req.params.id })
 
         // 204 no content - 404 : not found
         res.status(result.deletedCount ? 204 : 404).send({
-            error:true,
-            message:"Data is not found  or deleted"
+            error: true,
+            message: "Data is not found  or deleted"
         })
 
     }
