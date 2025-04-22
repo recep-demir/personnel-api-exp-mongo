@@ -18,8 +18,24 @@ module.exports = {
             if (user) {
 
                 if (user.isActive){
+
+                 // /* TOKEN */
+
+                 const tokenData = await Token.create({
+                    userId:user._id,
+                    token: passwordEncrypt(user._id + Date.now())
+                 })
+
+
+
+
+                 // /* TOKEN */
+
+
+
                     res.status(200).send({
                         error: false,
+                        token: tokenData.token,
                         message:"OK"
                     })
 
