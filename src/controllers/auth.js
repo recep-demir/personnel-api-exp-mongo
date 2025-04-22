@@ -37,20 +37,16 @@ module.exports = {
                       user
                   });
 
-
                 } else {
                     res.errorStatusCode = 401;
                     throw new Error('User is not active')
                 }
 
-
             } else {
                 res.errorStatusCode = 401;
                 throw new Error('Wrong email/username or password')
             }
-
             
-
         } else {
             res.errorStatusCode = 401;
             throw new Error('username/email and password required')
@@ -59,6 +55,16 @@ module.exports = {
 
 
     },
+    
+    logout: async (req, res) => {
 
+        const token = req.user ? await Token.deleteOne({ userId: req.user._id }) : null
+
+        res.status(200).send({
+            error: false,
+            message: token?.deletedCount ? 'User token deleted. Logout Success' : 'Logout Success'
+        });
+
+    },
 
 }
