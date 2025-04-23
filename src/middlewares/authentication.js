@@ -16,11 +16,5 @@ module.exports = async (req, res, next) => {
         if (tokenData) req.user = tokenData.userId
     }
 
-   
-    
-
-    
-
-
 next()
 }
