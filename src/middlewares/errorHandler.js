@@ -1,8 +1,4 @@
 "use strict"
-/* -------------------------------------------------------
-    EXPRESS - Personnel API
-------------------------------------------------------- */
-// app.use(errorHandler):
 
 module.exports = (err, req, res, next) => {
     
