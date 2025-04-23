@@ -2,9 +2,10 @@
 
 const router = require('express').Router()
 const { list, create, update, deletee, read } = require("../controllers/token");
+const {isLogin} = require("../middlewares/permissions")
 
 
-router.route("/").get(list).post(create)
+router.route("/").get(isLogin, list).post(create)
 
 router.route("/:id")
     .get(read)
