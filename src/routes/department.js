@@ -13,3 +13,5 @@ router.route("/:id")
     .delete(isAdmin, department.delete);
 
 router.get('/:id/personnels', department.personnels)
+
+module.exports = router
