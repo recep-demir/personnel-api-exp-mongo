@@ -2,10 +2,12 @@
 
 const router = require('express').Router()
 const { list, create, update, deletee, read } = require("../controllers/token");
-const {isLogin} = require("../middlewares/permissions")
+const {isAdmin} = require("../middlewares/permissions")
+
+router.use(isAdmin)
 
 
-router.route("/").get(isLogin, list).post(create)
+router.route("/").get(list).post(create)
 
 router.route("/:id")
     .get(read)
