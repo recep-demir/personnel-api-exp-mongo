@@ -1,7 +1,5 @@
 "use strict"
-/* -------------------------------------------------------
-    EXPRESS - Personnel API
-------------------------------------------------------- */
+
 const Personnel = require("../models/personnel")
 
 module.exports = {
@@ -19,7 +17,6 @@ module.exports = {
 
     create: async (req, res) => {
 
-        // todo : eger ki yeni bir lead olusturulursa eski lead degerini false yap.
         const isLead = req.body?.islead || false
 
         if (isLead) {
@@ -46,7 +43,6 @@ module.exports = {
     },
     update: async (req, res) => {
 
-        // todo : eger ki bir update olursa ve bu update lead olursa eski lead degerini false yap.
         const isLead = req.body?.islead || false
 
         if (isLead) {
