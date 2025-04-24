@@ -61,8 +61,6 @@ module.exports = {
 
     },
 
-    // todo : ilgili departmandaki tum kisileri listeleme
-
     personnels: async (req, res) => {
 
         const { id: departmentId } = req.params;
