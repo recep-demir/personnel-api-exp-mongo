@@ -28,6 +28,11 @@ require('./src/configs/dbConnection')
 // Authentication
 app.use(require('./src/middlewares/authentication'))
 
+//Logger
+const morgan = require('morgan')
+app.use(morgan('tiny'))
+
+
 
 // Routes:
 app.all('/', (req, res) => {
