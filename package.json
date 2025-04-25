@@ -1,8 +1,11 @@
 {
   "name": "personel-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Personnel Management System API Service v1",
+  "contact": {
+    "name": "Recep Demir",
+    "email": "demir.rp@gmail.com"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
