@@ -5,6 +5,10 @@ const Token = require("../models/token")
 module.exports = {
     list: async (req, res) => {
 
+        /* 
+            #swagger.ignore = true
+        */
+
         const result = await res.getModelList(Token)
 
         res.status(200).send({
@@ -17,6 +21,9 @@ module.exports = {
 
     create: async (req, res) => {
 
+        /* 
+            #swagger.ignore = true
+        */
         const result = await Token.create(req.body)
 
         res.status(201).send({
@@ -27,6 +34,10 @@ module.exports = {
     },
     read: async (req, res) => {
 
+         /* 
+            #swagger.ignore = true
+        */
+
         const result = await Token.findOne({ _id: req.params.id })
 
         res.status(200).send({
@@ -36,6 +47,10 @@ module.exports = {
 
     },
     update: async (req, res) => {
+
+         /* 
+            #swagger.ignore = true
+        */
 
         const result = await Token.updateOne({ _id: req.params.id }, req.body, {
             runValidators: true,  // runs validation methods
@@ -50,8 +65,13 @@ module.exports = {
     },
     deletee: async (req, res) => {
 
+         /* 
+            #swagger.ignore = true
+        */
+
         const result = await Token.deleteOne({ _id: req.params.id })
 
+        // 204 no content - 404 : not found
         res.status(result.deletedCount ? 204 : 404).send({
             error: true,
             message: "Data is not found  or deleted"
