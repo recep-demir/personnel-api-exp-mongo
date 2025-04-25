@@ -1,5 +1,12 @@
 # Personnel Management System API
 
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green)
+![Express](https://img.shields.io/badge/Express.js-4.x-blue)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-green)
+![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)
+![Status](https://img.shields.io/badge/status-in%20development-yellow)
+
+
 This is a RESTful API for managing departments and personnel within an organization. Built with **Node.js**, **Express**, and **MongoDB**, it provides endpoints to create, read, update, and delete departments and personnel, including features like department leads and user permission middleware.
 
 ---
