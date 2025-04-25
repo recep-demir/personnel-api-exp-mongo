@@ -27,12 +27,22 @@ This is a RESTful API for managing departments and personnel within an organizat
 
 ## Features
 
-- Department & personnel CRUD operations.
-- Only one lead per department is allowed.
-- Middleware permission checks (`isAdmin`, `isLogin`, `isAdminOrLead`).
-- Error handling via `express-async-errors`.
-- MongoDB integration with Mongoose.
-- Swagger + Redoc documentation.
+- **RESTful API Design** – Clean and modular structure using `Express Router`.
+- **MongoDB Integration** – Managed with `Mongoose`, providing schema validation and easy CRUD.
+- **Environment Configuration** – Using `dotenv` for secure environment variable management.
+- **Custom Middlewares**:
+  - `queryHandler`: Simplifies filtering, pagination, sorting.
+  - `authentication`: Adds user info to the request based on session data.
+  - `logger`: Logs each request with method and path.
+  - `errorHandler`: Handles errors gracefully with centralized logic.
+- **Session Management** – Cookies are managed using `cookie-session`.
+- **Authentication & Authorization** – Includes login with role-based access (admin, lead, etc.).
+- **Swagger and Redoc Documentation** – Interactive API documentation available at:
+  - [Swagger UI](http://localhost:8000/documents/swagger)
+  - [Redoc UI](http://localhost:8000/documents/redoc)
+- **Personnel & Department Management** – Create, update, delete, list both entities and associate them.
+- **Token System** – Includes token-based authentication system.
+- **Async Error Handling** – Simplified async error management with `express-async-errors`.
 
 ---
 
@@ -53,120 +63,89 @@ This is a RESTful API for managing departments and personnel within an organizat
 
 ---
 
-## Installation
+## 🔐 Authentication & Authorization
 
-```bash
-git clone https://github.com/recep-demir/personnel-api-exp-mongo.git
-cd personnel-api-exp-mongo
-npm install
-```
-
----
-
-## 🌱 Environment Variables
-
-Create a `.env` file in the root folder based on this example:
-
-### 📄 .env.example
-
-```
-PORT=8000
-MONGODB_URI=mongodb://localhost:27017/personnel-db
-SESSION_SECRET=your_session_secret_key
-```
+- Session-based login system using `cookie-session`.
+- Middleware-controlled access:
+  - `isLogin` – Ensures user is logged in.
+  - `isAdmin` – Allows only admins.
+  - `isAdminOrLead` – Allows either admin or team lead.
 
 ---
 
-## 📜 Scripts
+## 📄 API Endpoints
 
-| Script  | Command             | Description                  |
-|---------|---------------------|------------------------------|
-| start   | `npm start`         | Starts server with nodemon   |
-| test    | `npm test`          | Placeholder test script      |
+### Auth
+- `POST /auth/login`
+- `GET /auth/logout`
+- `GET /auth/me`
 
----
+### Departments
+- `GET /departments/`
+- `POST /departments/`
+- `GET /departments/:id`
+- `PUT/PATCH /departments/:id`
+- `DELETE /departments/:id`
+- `GET /departments/:id/personnels`
 
-## 📂 Project Structure
+### Personnels
+- `GET /personnels/`
+- `POST /personnels/`
+- `GET /personnels/:id`
+- `PUT/PATCH /personnels/:id`
+- `DELETE /personnels/:id`
 
-```
-├── index.js
-├── .env
-├── package.json
-├── /src
-│   ├── /logs
-│   ├── /configs
-│   │   ├── dbConnection.js
-│   │   └── swagger.json
-│   ├── /controllers
-│   │   ├── auth.js
-│   │   ├── department.js
-│   │   ├── token.js
-│   │   └── personnel.js
-│   ├── /helpers
-│   │   └── passwordEncrypt.js
-│   │   └── sync.js
-│   ├── /middlewares
-│   │   ├── authentication.js
-│   │   ├── errorHandler.js
-│   │   ├── logger.js
-│   │   ├── queryHandler.js
-│   │   └── permission.js
-│   ├── /models
-│   │   ├── department.js
-│   │   ├── token.js
-│   │   └── personnel.js
-│   ├── /routes
-│   │   ├── auth.js
-│   │   ├── department.js
-│   │   ├── token.js
-│   │   └── personnel.js
-│   └── /swagger
-│       ├── swagger-output.json
-│       └── swagger.js
-```
+### Tokens
+- `GET /tokens/`
+- `POST /tokens/`
+- `GET /tokens/:id`
+- `PUT/PATCH /tokens/:id`
+- `DELETE /tokens/:id`
 
 ---
 
-## 📘 API Documentation
+## 📄 API Documentation
 
-After starting the project, you can visit the following documentation:
-
-- **Swagger UI:** `http://localhost:8000/doc`
-- **Redoc UI:** `http://localhost:8000/redoc`
-
-### 📄 Swagger Starter (`src/swagger/swagger.js`)
-
-```js
-const swaggerAutogen = require('swagger-autogen')();
-
-const doc = {
-  info: {
-    title: 'Personnel API',
-    description: 'Personnel Management System API Service v1',
-    contact: {
-      name: 'Recep Demir',
-      email: 'demir.rp@gmail.com'
-    }
-  },
-  host: 'localhost:8000',
-  schemes: ['http']
-};
-
-const outputFile = './src/swagger/swagger-output.json';
-const endpointsFiles = ['./index.js'];
-
-swaggerAutogen(outputFile, endpointsFiles, doc);
-```
-
-To generate docs run:
-```bash
-node ./src/swagger/swagger.js
-```
+- **Swagger UI**: [http://localhost:8000/documents/swagger](http://localhost:8000/documents/swagger)
+- **Redoc UI**: [http://localhost:8000/documents/redoc](http://localhost:8000/documents/redoc)
 
 ---
 
-## 🧑‍💻 Author
+## 🛠️ Setup Instructions
+
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/recep-demir/personnel-api-exp-mongo.git
+    cd personnel-api-exp-mongo
+    npm install
+    ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create a `.env` file**
+   ```
+   PORT=8000
+   MONGO_URL=mongodb://localhost:27017/personnelDB
+   SECRET_KEY=yourSecretKey
+   ```
+
+4. **Run the server**
+   ```bash
+   npm start
+   ```
+
+---
+
+## 📬 Contact
 
 **Recep Demir**  
-📧 [demir.rp@gmail.com](mailto:demir.rp@gmail.com)  
-🔗 Git
+📧 demir.rp@gmail.com
+
+---
+
+## 📄 License
+
+This project is licensed under the [ISC License](LICENSE).
